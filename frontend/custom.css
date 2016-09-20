@@ -1,0 +1,204 @@
+:root {
+    --pokeball-size: 240px;
+    --black-color: #262122;
+    --red-color: #BA0C2F;
+    --before-size: calc(var(--pokeball-size) / 4);
+    --after-size: calc(var(--before-size) / 2);
+    --border-size: calc(var(--pokeball-size) / 16);
+    --root-border-size: var(--border-size);
+    --inner-border-size: calc(var(--before-size) - var(--after-size) - (var(--border-size) * 2))
+}
+
+@keyframes shake {
+    from {
+        transform: none;
+    }
+
+    20% {
+        transform: translate3d(-20%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    }
+
+    40% {
+        transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 5deg);
+    }
+
+    50% {
+        transform: translate3d(-10%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    }
+
+    60% {
+        transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 5deg);
+    }
+
+    to {
+        transform: none;
+    }
+}
+
+@keyframes shadow-shake {
+    from {
+        transform: translateX(-50%);
+    }
+
+    20% {
+        transform: translateX(-90%);
+    }
+
+    40% {
+        transform: translateX(-10%);
+    }
+
+    50% {
+        transform: translateX(-70%);
+    }
+
+    60% {
+        transform: translateX(-30%);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes shine {
+    from {
+        background-color: white;
+    }
+
+    50% {
+        background-color: red;
+    }
+
+    to {
+        background-color: white;
+    }
+}
+
+div.pokeball-container {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+}
+a.pokeball {
+    display: block;
+    z-index: 2;
+    align-self: center;
+    width: var(--pokeball-size);
+    height: var(--pokeball-size);
+    margin: 0 auto;
+    border-radius: 100%;
+    box-sizing: border-box;
+    border: var(--root-border-size) solid var(--black-color);
+    position: relative;
+    background: linear-gradient(
+            150deg,
+            var(--red-color) 0%,
+            var(--red-color) 46%,
+            var(--black-color) 46%,
+            var(--black-color) 54%,
+            white 54%,
+            white 100%
+    );
+&:matches(:before, :after) {
+     content: '';
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+ }
+&:before {
+     background-color: white;
+     width: var(--before-size);
+     height: var(--before-size);
+     border-radius: 100%;
+     border: var(--root-border-size) solid var(--black-color);
+ }
+&:after {
+     background-color: white;
+     width: var(--after-size);
+     height: var(--after-size);
+     border-radius: 100%;
+     border: calc(var(--root-border-size) / 2) solid var(--black-color);
+     transition: background-color .5s;
+ }
+
+/*&.triggered {*/
+/*cursor: pointer;*/
+/*animation-duration: .8s;*/
+/*animation-fill-mode: both;*/
+/*!*animation-iteration-count: infinite;*!*/
+/*animation-name: shake;*/
+/*&:after {*/
+/*!*animation-duration: .8s;*!*/
+/*!*animation-fill-mode: both;*!*/
+/*!*!*animation-iteration-count: infinite;*!*!*/
+/*!*animation-name: shine;*!*/
+/*background-color: red;*/
+/*}*/
+/*&+div.pokeball-shadow {*/
+/*animation-duration: .8s;*/
+/*animation-fill-mode: both;*/
+/*!*animation-iteration-count: infinite;*!*/
+/*animation-name: shadow-shake;*/
+/*}*/
+/*}*/
+
+&:hover {
+     cursor: pointer;
+     animation-duration: .8s;
+     animation-fill-mode: both;
+     animation-iteration-count: infinite;
+     animation-name: shake;
+&:after {
+     animation-duration: .8s;
+     animation-fill-mode: both;
+     animation-iteration-count: infinite;
+     animation-name: shine;
+     background-color: red;
+ }
+&+div.pokeball-shadow {
+      animation-duration: .8s;
+      animation-fill-mode: both;
+      animation-iteration-count: infinite;
+      animation-name: shadow-shake;
+  }
+}
+}
+div.pokeball-shadow {
+    width: calc(var(--pokeball-size) / 2);
+    height: calc(var(--pokeball-size) / 6);
+    background-color: color(var(--black-color) alpha(-10%));
+    box-shadow: 0 0 10px 10px color(var(--black-color) alpha(-10%));
+    border: 1px solid color(var(--black-color) alpha(-10%));
+    position: absolute;
+    bottom: calc(0 - (var(--pokeball-size) / 10));
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 100%;
+    z-index: 1;
+}
+
+div.everything-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: lightskyblue;
+}
+
+div.ground {
+    position: absolute;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    top: 60%;
+    background-color: lawngreen;
+    border-radius: 100%;
+    z-index: 0;
+    box-shadow: 0 0 100px 100px lawngreen;
+}
